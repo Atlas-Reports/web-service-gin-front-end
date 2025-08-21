@@ -5,6 +5,7 @@ import { AlbumCard } from "../components";
 
 export default function AlbumsPage() {
     const [albums, setAlbums] = useState<Album[]>([]);
+    const [iisCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     useEffect(() => {
         getAlbums().then((albums: Album[]) => {
@@ -15,14 +16,24 @@ export default function AlbumsPage() {
     }, []);
 
     return (
-        <div className='flex gap-2 p-2'>
-            {
-                albums.map(album => {
-                    return (
-                        <AlbumCard key={album.id} album={album} />
-                    );
-                })
-            }
+        <div className="p-2 flex flex-col gap-2">
+            <div className="flex justify-center">
+                <button className="flex items-center justify-center dark:bg-blue-500 px-2 gap-1">
+                    Create
+                    <span className='text-lg'>
+                    +
+                    </span>
+                </button>
+            </div>
+            <div className="flex gap-2">
+                {
+                    albums.map(album => {
+                        return (
+                            <AlbumCard key={album.id} album={album} />
+                        );
+                    })
+                }
+            </div>
         </div>
     );
 }

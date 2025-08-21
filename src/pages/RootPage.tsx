@@ -5,7 +5,7 @@ export default function RootPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate("albums");
+        navigate("/albums");
     }, [navigate]);
 
     return null;
