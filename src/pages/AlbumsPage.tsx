@@ -4,10 +4,12 @@ import { type Album } from "../model";
 import { AlbumCard } from "../components";
 import { createPortal } from "react-dom";
 import { CreateModal } from "../components";
+import { useNavigate } from "react-router";
 
 export default function AlbumsPage() {
     const [albums, setAlbums] = useState<Album[]>([]);
     const [iisCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAlbums().then((albums: Album[]) => {
@@ -42,6 +44,10 @@ export default function AlbumsPage() {
         });
     };
 
+    const toDetail = (id: string) => {
+        navigate("detail", { state: { id } });
+    };
+
     return (
         <>
             <div className="p-2 flex flex-col gap-2">
@@ -54,11 +60,11 @@ export default function AlbumsPage() {
                     </span>
                     </button>
                 </div>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="flex gap-2 flex-wrap">
                     {
                         albums.map(album => {
                             return (
-                                <AlbumCard key={album.id} album={album} />
+                                <AlbumCard key={album.id} album={album} onClick={toDetail} />
                             );
                         })
                     }
